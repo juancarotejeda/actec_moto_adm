@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<!-- mobile metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends "layout.html" %}
+{% block title %}finanzas{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+{{ super() }}
+<section>
+ <div class="info"> 
+<h1>INFORMACION FINANCIERA</h1>
+<h3>PARADA:{{parada}}</h3>
+{%for datos in informacion %}
+<h4>PARADA: {{datos[2]}}</h4>
+{%endfor%}
+<label for="fecha">FECHA:</label>
+<input type="text" name="time" value="{{fecha}}" id="fecha">
+<br> 
+<table>
+   <tr>
+   <tr>
+      <th>ITEM</th>
+      <th>TIPO_DE_INFORMACION</th>
+      <th>CANTIDAD</th>
+      <th>MONEDA</th>
+   </tr>
+   <tr>
+      <tD>1</tD>
+      <td>BALANCE BANCARIO:</td>
+      <td>{{diario[7]}}</td>
+      <td>RD$</td>
+   </tr>
+   <tr>
+      <tD>2</tD>
+      <td>BALANCE A LA FECHA:</td>
+      <td>{{diario[0]}}</td>
+      <td>RD$</td>
+   </tr>
+   <tr>
+      <tD>3</tD>
+      <td>TOTAL DE PRESTAMOS :</td>
+      <td>{{diario[1]}}</td>
+      <td>RD$</td>
+   </tr>
+   <tr>
+      <tD>4</tD>
+      <td>TOTAL DE INGRESOS :</td>
+      <td>{{diario[2]}}</td>
+      <td>RD$</td>
+   </tr>
+   <tr>
+      <tD>5</tD>
+      <td>TOTAL DE GASTOS :</td>
+      <td>{{diario[3]}}</td>
+      <td>RD$</td>
+   </tr>
+   <tr>
+      <tD>6</tD>
+      <td>TOTAL DE APORTES :</td>
+      <td> {{diario[4]}}</td>
+      <td>RD$</td>
+   </tr>
+   <tr>
+      <tD>7</tD>
+      <td>AORTES PENDIENTES:</td>
+      <td>{{diario[5]}}</td>
+      <td>RD$</td>
+   </tr>
+   <tr>
+      <tD>8</tD>
+      <td> ABONO A PRESTAMOS:</td>
+      <td>{{diario[6]}}</td>
+      <td>RD$</td>
+   </tr>
+   </tr>
+</table>
+</div>
+</section>
+<section id="banco">
+  <div class="info">
+    <h1>CUENTA DE BANCO</h1>
+  </div>
+</section>
+<footer>
+   <a href="{{ url_for('logout') }}" class="btn"><button>Salir</button></a><br>
+    &copy; Copyright 2024 by <a href="http://www.cessrl.blogspot.com">La Administradora</a>.
+  </footer> 
+{% endblock %}
+  </html>

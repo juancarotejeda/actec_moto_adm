@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<!-- mobile metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends "layout.html" %}
+{% block title %}informacion{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+{{ super() }}
+<section id="info-parada">
+<div class="head-info">
+<div class="head-tipo"><h3>INFORMACION DE LA PARADA</h3></div>    
+<div class="head-contenido">
+<div class="head-contenido1">   
+{%for datos in informacion %}
+<ul>
+<li><label for="parada">Parada:</label>
+<input type="text" value="{{datos[2]}}" id="parada"></li>
+<li><label for="codigo">Codigo:</label>
+<input type="text" value="{{datos[1]}}" id="codigo"></li>
+<li><label for="direccion">Direccion:</label>
+<input type="text" value="{{datos[3]}}" id="direccion"></li>
+<li><label for="municipio">Municipio:</label>
+<input type="text" value="{{datos[4]}}" id="municipio"></li>
+<li><label for="provincia">Provincia:</label>
+<input type="text" value="{{datos[5]}}" id="provincia"></li>
+<li><label for="zona">Zona:</label>
+<input type="text" value="{{datos[6]}}" id="zona"></li>
+<li><label for="aporte">Aporte:</label>
+<input type="text" value="{{datos[7]}}RD$/{{datos[8]}}" id="aporte"></li>
+</ul>
+{%endfor%}
+</div>
+
+<div class="head-contenido2">
+<ul>
+<li><label for="parada">Aporte:</label>
+<input type="text" value="{{cabecera[0]}}" id="parada"></li>
+<li><label for="codigo">Miembros:</label>
+<input type="text" value="{{cabecera[1]}}" id="codigo"></li>
+<li><label for="municipio">Presidente:</label>
+<input type="text" value="{{cabecera[3]}}" id="municipio"></li>
+<li><label for="provincia">Veedor:</label>
+<input type="text" value="{{cabecera[4]}}" id="provincia"></li>
+</ul>
+</div>
+</div>
+</div>
+</section> 
+<section id="listado">
+ <div class="info"> 
+<h1>LISTADO DE MIEMBROS</h1> 
+{%for datos in informacion %}
+{%endfor%}
+<table>
+   <tr>
+      <th>ITEM</th>
+      <th>NOMBRE_COMPLETO</th>
+      <th>CEDULA</th>
+      <th>TELEFONO</th>
+      <th>FUNCION</th>
+   </tr>
+   {% for usuario in miembros %}
+   <tr>
+      <td>{{usuario[0]}}</td>
+      <td>{{usuario[1]}}</td>
+      <td>{{usuario[2]}}</td>
+      <td>{{usuario[3]}}</td>
+      <td>{{usuario[4]}}</td>
+   </tr>
+   {%endfor%}
+</table>   
+</div>
+</section>
+<footer>
+  <a href="{{ url_for('logout') }}" class="btn"><button>Salir</button></a><br>  
+  &copy; Copyright 2024 by <a href="http://www.cessrl.blogspot.com">La Administradora</a>.
+</footer> 
+{% endblock %}
+</html>
