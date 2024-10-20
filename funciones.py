@@ -1,62 +1,7 @@
 
 
 import bbdd as db
-
-def logger():
-    paradas=[]     
-    cur = db.cursor()
-    # Execute a query
-    resultado=cur.execute("SELECT nombre FROM tabla_index")
-    for paradax in resultado:
-      paradas+=paradax  
-    return paradas  
-
-def logger_a(parada,password):
-    account=[]
-    query=f"SELECT password FROM tabla_index WHERE nombre ='{parada}'"
-    accounts =consultar_db(query) 
-    for accountx in accounts:
-     account += accountx 
-    return account
-
-
-def verificacion1(parada,cedula) :  
-  cur = db.connection.cursor()   
-  cur.execute(F"SELECT  cedula  FROM  {parada} WHERE nombre = '{cedula}' ")
-  result=cur.fetchone()
-  print(result) 
-  if result != []: 
-      return True 
-  else:
-      return False  
-    
-def verificacion2(parada,password):  
-    clave=[]
-    query=f"SELECT password FROM tabla_index  WHERE nombre = '{parada}'" 
-    ident=consultar_db(query) 
-    for id in ident:
-      clave=id[0]      
-    if password == clave:  
-       return True        
-
-    
-def adm_verificacion(parada,adm_d,adm_p):
-    clave=[]
-    query=f"SELECT adm_password FROM tabla_index  WHERE nombre = '{parada}'" 
-    ident=consultar_db(query)
-    for dato in ident:
-      clave = dato[0]
-    if clave == adm_p :
-      query=f"SELECT cedula FROM {parada}  WHERE funcion = 'Presidente'" 
-      ids=consultar_db(query)
-      for idx in ids: 
-        id=idx[0] 
-      if id == adm_d:
-        return True 
-    else:
-       return False 
-   
-        
+          
 def listado_paradas():
     query="SELECT nombre FROM tabla_index " 
     db_paradas=consultar_db(query)       
@@ -139,13 +84,15 @@ def aportacion(parada):
     return data
   
 def modificar_db(query): 
-  cursor= db.connection.cursor() 
-  cursor.execute(query)     
+  cur= db.connection.cursor() 
+  cur.execute(query)     
   db.connection.commit()
+  cur.close()
   return
 
 def consultar_db(query):
-    cursor= db.connection.cursor()
-    cursor.execute(query)
-    Result= cursor.fetchall() 
+    cur= db.connection.cursor()
+    cur.execute(query)
+    Result= cur.fetchall() 
+    cur.close()
     return Result    

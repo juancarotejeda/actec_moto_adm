@@ -54,8 +54,15 @@ def info():
     print(informacion)
     cabecera=funciones.info_cabecera(parada) 
     print(cabecera)
+    cant = funciones.num_miembros(parada)
+    print(cant)
+    presidente=funciones.fun_miembros_p(parada)
+    print(presidente)
+    veedor=funciones.fun_miembro_v(parada)
+    print(veedor)
     miembros=funciones.lista_miembros(parada)
-    return render_template('info.html',informacion=informacion,miembros=miembros,cabecera=cabecera,fecha=fecha) 
+    dirigencia= ('operativa',cant,presidente,veedor)
+    return render_template('info.html',informacion=informacion,miembros=miembros,cabecera=cabecera,fecha=fecha,dirigentes=dirigencia) 
 
 @app.route('/aportes') 
 def aportes():
