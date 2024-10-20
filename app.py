@@ -1,6 +1,5 @@
 from datetime import datetime
 from flask import Flask,render_template,request,redirect,url_for,session
-import bbdd
 import funciones
 app = Flask(__name__)
 # rutas
@@ -18,7 +17,7 @@ app.secret_key='mysecret_key'
 
 
 parada=[]
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def login():
     paradas=[]     
     cur = db.connection.cursor()
