@@ -14,8 +14,8 @@
 				<h1 class="word">Presidente</h1>
                 </div>
 			    <h2 class="word">
-				<form action="{{ url_for('login_a') }}" method="post">
-				    <div class="msg">{{ msg }}</div>
+				<form action="{{url_for('login_a')}}" method="post">
+				    <div class="msg">{{msg}}</div>
                     <input id="parada" name="parada" type="text" value="{{parada}}" class="textbox"/></br></br>
 					<input id="username" name="username" type="text" placeholder="Nombre del presidente" class="textbox"/></br></br>
 					<input id="password" name="password" type="password" placeholder="Entre su Password" class="textbox"/></br></br></br>

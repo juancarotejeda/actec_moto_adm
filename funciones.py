@@ -42,7 +42,6 @@ def fun_miembro_v(parada):
       veedor=prex[0] 
     return veedor               
      
-
 def lista_miembros(parada):
     listas=[]
     query=f"SELECT codigo, nombre, cedula, telefono, funcion FROM {parada}"

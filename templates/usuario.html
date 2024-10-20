@@ -1,8 +1,4 @@
-<!doctype html>
-<html lang="en">
-<meta charset="utf-8">
-<!-- mobile metas -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
 {% extends "layout.html" %}
 {% block title %}informacion{% endblock %}
 {% block head %}
@@ -42,7 +38,7 @@
    {% for user in datos %}
    <tr>
       <td>
-         <input type="text" class="campo_item" name="item" value="{{ user[0]}}">
+         <input  type="text" class="campo_item" name="item" value="{{ user[0]}}">
       </td>
       <td>
          <select name="estado" id="pagar">
@@ -71,4 +67,3 @@
   &copy; Copyright 2024 by <a href="http://www.cessrl.blogspot.com">La Administradora</a>
 </footer> 
 {% endblock %}
-</html>

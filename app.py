@@ -221,60 +221,54 @@ def data_bancos():
  
        return redirect(url_for('data_confirmacion'))   
 
-@app.route("/data_gastos",methods=["GET","POST"])
+@app.route("/data_gastos",methods=["POST"])
 def data_gastos(): 
     n_gastos=[]
-    if request.method == 'POST':
-       hoy=request.form['time']
-       descripcion_gastos = request.form['descripcion_g'] 
-       cantidad_gastos = request.form['cantidad_g']
-                 
-       query = f"CREATE TABLE IF NOT EXISTS {parada}_gastos( fecha VARCHAR(50)  NULL,descripcion_gastos VARCHAR(50) NULL, cantidad_gastos DECIMAl(10,2) unsigned DEFAULT 0)"                                                                                                                          
-       db.modificar_db(query)
-       
-       query=f"INSERT INTO {parada}_gastos(fecha, descripcion_gastos, cantidad_gastos) VALUES('{hoy}', '{descripcion_gastos}', {cantidad_gastos})"
-       db.modificar_db(query)
-       
-       query=f"SELECT SUM(cantidad_gastos) FROM  {parada}_gastos "
-       suma=db.consultar_db(query) 
-       for total in suma:
-        n_gastos=total[0]   
-          
-       query=f"UPDATE tabla_index SET gastos={n_gastos} WHERE nombre='{parada}'"
-       db.modificar_db(query)
+    hoy=request.form['time']
+    descripcion_gastos = request.form['descripcion_g'] 
+    cantidad_gastos = request.form['cantidad_g']
+                
+    query = f"CREATE TABLE IF NOT EXISTS {parada}_gastos( fecha VARCHAR(50)  NULL,descripcion_gastos VARCHAR(50) NULL, cantidad_gastos DECIMAl(10,2) unsigned DEFAULT 0)"                                                                                                                          
+    db.modificar_db(query)
+    
+    query=f"INSERT INTO {parada}_gastos(fecha, descripcion_gastos, cantidad_gastos) VALUES('{hoy}', '{descripcion_gastos}', {cantidad_gastos})"
+    db.modificar_db(query)
+    
+    query=f"SELECT SUM(cantidad_gastos) FROM  {parada}_gastos "
+    suma=db.consultar_db(query) 
+    for total in suma:
+      n_gastos=total[0]           
+    query=f"UPDATE tabla_index SET gastos={n_gastos} WHERE nombre='{parada}'"
+    db.modificar_db(query)
 
-       return redirect(url_for('data_confirmacion'))    
+    return redirect(url_for('data_confirmacion'))    
  
  
-@app.route("/data_ingresos",methods=["GET","POST"])
+@app.route("/data_ingresos",methods=["POST"])
 def data_ingresos(): 
     n_ingresos=[]
-    if request.method == 'POST':
-       hoy=request.form['time']
-       descripcion_ingreso = request.form['descripcion_i'] 
-       cantidad_ingreso = request.form['cantidad_i']   
-   
-       query = f"CREATE TABLE IF NOT EXISTS {parada}_ingresos( fecha VARCHAR(50)  NULL, descripcion_ingresos VARCHAR(50)  NULL, cantidad_ingresos DECIMAl(10,2) unsigned DEFAULT 0)"                                                                                                                          
-       db.modificar_db(query)
-       
-       query=f"INSERT INTO {parada}_ingresos(fecha, descripcion_ingresos, cantidad_ingresos) VALUES('{hoy}', '{descripcion_ingreso}', { cantidad_ingreso})"
-       db.modificar_db(query)
-       
-       query=f"SELECT SUM(cantidad_ingresos) FROM  {parada}_ingresos "
-       suma=db.consultar_db(query) 
-       for total in suma:  
-        n_ingresos=total[0]
-        
-       query=f"UPDATE tabla_index SET ingresos={n_ingresos}  WHERE nombre='{parada}'"
-       db.modificar_db(query) 
- 
-      
-       return redirect(url_for('data_confirmacion'))        
-              
-@app.route("/data_prestamos",methods=["GET","POST"])
-def data_prestamos(): 
 
-    if request.method == 'POST':            
+    hoy=request.form['time']
+    descripcion_ingreso = request.form['descripcion_i'] 
+    cantidad_ingreso = request.form['cantidad_i']   
+
+    query = f"CREATE TABLE IF NOT EXISTS {parada}_ingresos( fecha VARCHAR(50)  NULL, descripcion_ingresos VARCHAR(50)  NULL, cantidad_ingresos DECIMAl(10,2) unsigned DEFAULT 0)"                                                                                                                          
+    db.modificar_db(query)
+    
+    query=f"INSERT INTO {parada}_ingresos(fecha, descripcion_ingresos, cantidad_ingresos) VALUES('{hoy}', '{descripcion_ingreso}', { cantidad_ingreso})"
+    db.modificar_db(query)
+    
+    query=f"SELECT SUM(cantidad_ingresos) FROM  {parada}_ingresos "
+    suma=db.consultar_db(query) 
+    for total in suma:  
+     n_ingresos=total[0]
+    
+    query=f"UPDATE tabla_index SET ingresos={n_ingresos}  WHERE nombre='{parada}'"
+    db.modificar_db(query)    
+    return redirect(url_for('data_confirmacion'))        
+              
+@app.route("/data_prestamos",methods=["POST"])
+def data_prestamos():            
        n_prestamos=[] 
        hoy=request.form['time']               
        prestamo = request.form['descripcion_p'] 
@@ -293,14 +287,11 @@ def data_prestamos():
        
        query=f"UPDATE tabla_index SET prestamos={n_prestamos}  WHERE nombre='{parada}'"
        db.modificar_db(query)      
-       
-       
+             
        return redirect(url_for('data_confirmacion')) 
 
-@app.route("/data_abonos",methods=["GET","POST"])
-def data_abonos(): 
-
-    if request.method == 'POST':              
+@app.route("/data_abonos",methods=["POST"])
+def data_abonos():               
        n_abonos=[]
        abono_persona=[]
        prestamo=[] 
@@ -346,17 +337,17 @@ def data_abonos():
 
        return redirect(url_for('data_confirmacion')) 
 
-@app.route("/diario_pdf", methods=['GET','POST'])
+@app.route("/diario_pdf", methods=['POST'])
 def finanza():
     return redirect(url_for('data_confirmacion')) 
 
-@app.route("/list_miembros_pdf", methods=['GET','POST'])
+@app.route("/list_miembros_pdf", methods=['POST'])
 def miembros_pdf():
     miembros=funciones.lista_miembros(parada)
     miembros_pdf(parada,miembros)
     return redirect(url_for('data_confirmacion')) 
 
-@app.route("/data_confirmacion", methods=["GET","POST"])
+@app.route("/data_confirmacion", methods=["POST"])
 def data_confirmacion():
          informacion=funciones.info_parada(parada) 
          miembros=funciones.lista_miembros(parada)
@@ -393,11 +384,10 @@ def regreso():
 
 @app.route("/respuestos", methods=["GET","POST"])
 def msg():
-    if request.method=="POST":
-        nombre=request.form['nombre']
-        correo=request.form['correo']
-        telefono=request.form['telefono']    
-    return redirect(url_for('login'))
+  nombre=request.form['nombre']
+  correo=request.form['correo']
+  telefono=request.form['telefono']    
+  return redirect(url_for('login'))
 
 # bloque de prueba
 if __name__ == "__main__":
